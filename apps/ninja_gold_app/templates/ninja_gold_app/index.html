@@ -13,7 +13,7 @@
         <div class='container'>
             <div class='gold'>
                 <p>Your Gold:</p>
-                <p>  request.session['gold']  </p>
+                <p> {{ request.session.gold }}   </p>
             </div>
             <div class='actions'>
                 <div class='farm'>
@@ -55,14 +55,14 @@
             </div>
             <div class='output'>
                 <p>Activities:</p>
-                % if session['building'] == 'initial' %
-                <textarea id='text_output' class="form-control" rows="6"> session['activity'] </textarea>
-                % endif %
-                % if session['goldEarned'] > 0: %
-                <textarea style=color:green; id='text_output' class="form-control" rows="6"> session['activity'] </textarea>
-                % elif session['goldEarned'] < 0 %
-                <textarea style=color:red; id='text_output' class="form-control" rows="6"> session['activity'] </textarea>
-                % endif %
+                {% if request.session.building == 'initial' %}
+                    <textarea id='text_output' class="form-control" rows="6"> {{ request.session.activity }} </textarea>
+                {% endif %}
+                {% if request.session.goldEarned > 0 %}
+                    <textarea style=color:green; id='text_output' class="form-control" rows="6"> {{ request.session.activity }} </textarea>
+                {% elif request.session.goldEarned < 0 %}
+                    <textarea style=color:red; id='text_output' class="form-control" rows="6"> {{ request.session.activity }} </textarea>
+                {% endif %}
             </div>
         </div>
         <script>
