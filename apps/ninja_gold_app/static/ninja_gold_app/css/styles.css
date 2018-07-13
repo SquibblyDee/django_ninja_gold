@@ -50,6 +50,8 @@
 
 .output{
     margin: 1% 0% 0% 1%;
+    height: 200px;
+    outline: 1px solid black;
 }
 
 input{

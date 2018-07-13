@@ -8,6 +8,7 @@
         <!-- Linking Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- linking a javascript file -->
+        
     </head>
     <body>
         <div class='container'>
@@ -55,14 +56,16 @@
             </div>
             <div class='output'>
                 <p>Activities:</p>
-                {% if request.session.building == 'initial' %}
-                    <textarea id='text_output' class="form-control" rows="6"> {{ request.session.activity }} </textarea>
-                {% endif %}
-                {% if request.session.goldEarned > 0 %}
-                    <textarea style=color:green; id='text_output' class="form-control" rows="6"> {{ request.session.activity }} </textarea>
-                {% elif request.session.goldEarned < 0 %}
-                    <textarea style=color:red; id='text_output' class="form-control" rows="6"> {{ request.session.activity }} </textarea>
-                {% endif %}
+                <textarea  id='text_output' class="form-control" rows="6">
+                {% for row in request.session.activities %}
+                    {% if row.goldEarned >= 0 %}
+                        Earned {{ row.goldEarned }} from the {{ row.building }}! {{ row.datetime }}
+                    {% endif %}
+                    {% if row.goldEarned < 0 %}
+                        Entered a casino and lost {{row.goldEarned}}... Ouch... {{ row.datetime }}
+                    {% endif %}
+                {% endfor %}
+                </textarea>
             </div>
         </div>
         <script>
