@@ -8,8 +8,10 @@ def index(request):
     if 'gold' not in request.session:
         request.session['gold'] = 0
         request.session['building'] = "initial"
-        request.session['activity'] = ""
+        request.session['activity'] = []
         request.session['goldEarned'] = 0
+        request.session['dateTime'] = ""
+
     return render(request,'ninja_gold_app/index.html')
 
 def process_money(request, methods=['POST']):
@@ -30,12 +32,21 @@ def process_money(request, methods=['POST']):
     request.session['gold'] += request.session['goldEarned']
     print(request.session)
     if request.session['goldEarned'] > 0:
-        request.session['activity']="Earned "+str(request.session['goldEarned'])+" gold from the "+request.session['building']+"!  ("+str(datetime.datetime.now().strftime("%y/%m/%d %H:%M"))+")\n"
+        temp_list = request.session['activity']
+        request.session['dateTime'] = datetime.datetime.now().strftime("%y/%m/%d %H:%M")
+        # temp_list.append({"gold": request.session['gold'], "goldEarned": request.session['goldEarned'], "building": request.session['building'], "dateTime": request.session['dateTime']})
+        temp_list.append("Earned "+str(request.session['goldEarned'])+" gold from the "+request.session['building']+"!  ("+str(datetime.datetime.now().strftime("%y/%m/%d %H:%M"))+")\n")
+        request.session['activity'] = temp_list
+        # request.session['activity']="Earned "+str(request.session['goldEarned'])+" gold from the "+request.session['building']+"!  ("+str(datetime.datetime.now().strftime("%y/%m/%d %H:%M"))+")\n"
     else:
-        request.session['activity']="Entered a "+request.session['building']+" and lost "+str(request.session['goldEarned'])+" gold... Ouch...  ("+str(datetime.datetime.now().strftime("%y/%m/%d %H:%M"))+")\n"
+        temp_list = request.session['activity']
+        request.session['dateTime'] = datetime.datetime.now().strftime("%y/%m/%d %H:%M")
+        temp_list.append("Entered a "+request.session['building']+" and lost "+str(request.session['goldEarned'])+" gold... Ouch...  ("+str(datetime.datetime.now().strftime("%y/%m/%d %H:%M"))+")\n")
+        request.session['activity'] = temp_list
+        # request.session['activity']="Entered a "+request.session['building']+" and lost "+str(request.session['goldEarned'])+" gold... Ouch...  ("+str(datetime.datetime.now().strftime("%y/%m/%d %H:%M"))+")\n"
     return redirect('/')
 
 # Easy way to reset our session data for testing
-def destroy():
+def destroy(request):
     request.session.clear()
     return redirect('/')

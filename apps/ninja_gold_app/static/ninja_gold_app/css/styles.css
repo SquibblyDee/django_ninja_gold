@@ -59,6 +59,8 @@ input{
 
 textarea{
     width: 98%;
+    overflow-y: scroll;
+    max-height: 200px;
 }
 
 .farm, .cave, .house, .casino{
