@@ -32,7 +32,7 @@ def process_money(request, methods=['POST']):
     request.session['activities'] = temp_list
     return redirect('/')
 
-# Easy way to reset our session data for testing
-# def destroy(request):
-    # request.session.clear()
-    # return redirect('/')
+
+def destroy(request):
+    request.session.clear()
+    return redirect('/')

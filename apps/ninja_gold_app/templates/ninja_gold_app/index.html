@@ -57,15 +57,8 @@
             <div class='output'>
                 <p>Activities:</p>
                 <textarea  id='text_output' class="form-control" rows="6">
-                    <!-- Iterate through our session key that has a dictionary as a value to pull out all our stuff and concatanate our desired strings -->
                 {% for row in request.session.activities %}
-                    {% if row.goldEarned >= 0 %}
-                        Earned {{ row.goldEarned }} from the {{ row.building }}! {{ row.datetime }}
-                    {% endif %}
-                    {% if row.goldEarned < 0 %}
-                        Entered a casino and lost {{row.goldEarned}}... Ouch... {{ row.datetime }}
-                    {% endif %}
-                {% endfor %}
+                    {% if row.goldEarned >= 0 %}Earned {{ row.goldEarned }} from the {{ row.building }}! {{ row.datetime }}{% endif %}{% if row.goldEarned < 0 %}Entered a casino and lost {{row.goldEarned}}... Ouch... {{ row.datetime }}{% endif %}{% endfor %}
                 </textarea>
             </div>
         </div>
