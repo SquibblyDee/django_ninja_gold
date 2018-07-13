@@ -8,7 +8,7 @@
         <!-- Linking Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- linking a javascript file -->
-        
+        <script type="text/javascript" src="{% static '/ninja_gold_app/js/scripts.js' %}"></script>
     </head>
     <body>
         <div class='container'>
@@ -57,6 +57,7 @@
             <div class='output'>
                 <p>Activities:</p>
                 <textarea  id='text_output' class="form-control" rows="6">
+                    <!-- Iterate through our session key that has a dictionary as a value to pull out all our stuff and concatanate our desired strings -->
                 {% for row in request.session.activities %}
                     {% if row.goldEarned >= 0 %}
                         Earned {{ row.goldEarned }} from the {{ row.building }}! {{ row.datetime }}
@@ -70,7 +71,7 @@
         </div>
         <script>
             // Calling script to force textarea to bottom always
-            // forceTextToBottom
+            forceTextToBottom()
         </script>
     </body>
 </html>
